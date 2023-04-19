@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+}
+.wrapper{
+    height: 100vh;
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+  
+}
+#canvas{
+    height: 100vh;
+    flex: 1;
+    
+    border: 1px solid #333;
+}
+.size{
+    font-size: 30px;
+    text-align: center;
+    background-color: #ffffff;
+    color: #333;
+    height: 50px;
+}
+button{
+    height: 40px;
+    outline: none;
+    margin-top:10px ;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+input{
+    height: 40px;
+}
+.save{
+    height: 40px;font-size: 30px;
+    text-align: center;background-color: #333;
+    color: azure;
+}
