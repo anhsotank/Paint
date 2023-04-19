@@ -1,6 +1,6 @@
 const canvas= document.getElementById("canvas");
 const color=document.querySelector("#color")
-const remote=document.querySelector("#remote")
+const remove=document.querySelector(".remove")
 const up=document.querySelector(".up")
 const down=document.querySelector(".down")
 const save=document.querySelector(".save")
@@ -58,7 +58,7 @@ canvas.addEventListener("mousemove",(even)=>{
         ctx.beginPath();
         ctx.moveTo(pointstart.x,pointstart.y);
         ctx.lineTo(pointlast.x,pointlast.y);
-        ctx.strokeStyle=usecolor
+        ctx.strokeStyle=usecolor;
         ctx.lineWidth=sizedraw*2;
         ctx.stroke();
         pointstart.x=pointlast.x
@@ -68,13 +68,16 @@ canvas.addEventListener("mousemove",(even)=>{
     }
 })
 canvas.addEventListener("mouseup",(even)=>{
-    console.log(even.offsetX,even.offsetY)
+    
     isdrawing=false
 })
 
 ///Menu
 color.addEventListener("change",(even)=>{
     usecolor=even.target.value
+})
+remove.addEventListener("click",e=>{
+    usecolor="#fff"
 })
 up.addEventListener('click',e=>{  
     if(sizedraw<5){
@@ -88,6 +91,7 @@ down.addEventListener('click',e=>{
         size.innerText=sizedraw;
     }
 })
+
 clear.addEventListener('click',e=>{
     ctx.clearRect(0,0,canvas.getClientRects()[0].width,canvas.getClientRects()[0].height)
 })
