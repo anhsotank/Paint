@@ -4,25 +4,24 @@
     box-sizing: border-box;
 }
 
-body{
-    height: 100vh;
+body{   
     display: flex;
 }
 .wrapper{
-    height: 100vh;
+    height: 800px;
     width: 50px;
     display: flex;
     flex-direction: column;
-    background-color: black;
-  
+    background: rgb(131,58,180);
+    background: linear-gradient(159deg, rgba(131,58,180,1) 0%, rgba(253,29,29,0.8982143882943803) 50%, rgba(252,176,69,1) 100%);
+    border-radius: 5px;
+    
 }
 #canvas{
-    height: 100vh;
-    flex: 1;
-    
     border: 1px solid #333;
 }
 .size{
+    border-radius: 4px;
     font-size: 30px;
     text-align: center;
     background-color: #ffffff;
@@ -35,11 +34,17 @@ button{
     margin-top:10px ;
     margin-bottom: 10px;
     cursor: pointer;
+    border-radius: 4px;
+    display: block;
+}
+button:hover{
+    opacity: .7;
 }
 input{
     height: 40px;
 }
 .save{
+    border-radius: 4px;
     height: 40px;font-size: 30px;
     text-align: center;background-color: #333;
     color: azure;

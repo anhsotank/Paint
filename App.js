@@ -10,12 +10,8 @@ let isdrawing=false
 let usecolor="#333"
 let sizedraw=3
 
-const ctx =canvas.getContext("2d");
-// ctx.beginPath();
-//     ctx.moveTo(10,10);
-//     ctx.lineTo(100,100);
-   
-//     ctx.stroke();
+const ctx =canvas.getContext('2d');
+
 let pointstart={
     x:0,
     y:0
@@ -26,13 +22,19 @@ let pointlast={
 }
 Draw = ()=>{
     ctx.beginPath();
-    ctx.strokeStyle=usecolor
-    ctx.moveTo(pointstart.x,pointstart.y);
-    ctx.lineTo(pointlast.x,pointlast.y);
-    ctx.lineWidth=sizedraw*2;
-    ctx.stroke();
-    pointstart.x=pointlast.x
-    pointstart.y=pointlast.y
+        ctx.arc(pointstart.x,pointstart.y,sizedraw,0,2*Math.PI);
+        ctx.fillStyle=usecolor
+        ctx.fill()
+
+        ctx.beginPath();
+        ctx.moveTo(pointstart.x,pointstart.y);
+        ctx.lineTo(pointlast.x,pointlast.y);
+        ctx.strokeStyle=usecolor;
+        ctx.lineWidth=sizedraw*2;
+        ctx.stroke();
+        pointstart.x=pointlast.x
+        pointstart.y=pointlast.y
+        console.log(even.offsetX,even.offsetY)
 }
 
 canvas.addEventListener("mousedown",(even)=>{
@@ -49,26 +51,10 @@ canvas.addEventListener("mousemove",(even)=>{
             x: even.offsetX,
             y: even.offsetY
         }
-
-        ctx.beginPath();
-        ctx.arc(pointstart.x,pointstart.y,sizedraw,0,2*Math.PI);
-        ctx.fillStyle=usecolor
-        ctx.fill()
-
-        ctx.beginPath();
-        ctx.moveTo(pointstart.x,pointstart.y);
-        ctx.lineTo(pointlast.x,pointlast.y);
-        ctx.strokeStyle=usecolor;
-        ctx.lineWidth=sizedraw*2;
-        ctx.stroke();
-        pointstart.x=pointlast.x
-        pointstart.y=pointlast.y
-        console.log(even.offsetX,even.offsetY)
-
+        Draw()
     }
 })
-canvas.addEventListener("mouseup",(even)=>{
-    
+canvas.addEventListener("mouseup",(even)=>{   
     isdrawing=false
 })
 
@@ -80,7 +66,7 @@ remove.addEventListener("click",e=>{
     usecolor="#fff"
 })
 up.addEventListener('click',e=>{  
-    if(sizedraw<5){
+    if(sizedraw<10){
         sizedraw++;
         size.innerText=sizedraw;
     }
