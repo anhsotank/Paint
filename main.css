@@ -1,21 +1,22 @@
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    
 }
 
 body{   
     display: flex;
 }
 .wrapper{
-    height: 800px;
+    padding: 4px;
+    height: 1200px;
     width: 50px;
     display: flex;
     flex-direction: column;
     background: rgb(131,58,180);
     background: linear-gradient(159deg, rgba(131,58,180,1) 0%, rgba(253,29,29,0.8982143882943803) 50%, rgba(252,176,69,1) 100%);
-    border-radius: 5px;
-    
+    border-radius: 5px;  
+    border-right:3px solid #2f2f2f ;
 }
 #canvas{
     border: 1px solid #333;
@@ -48,4 +49,15 @@ input{
     height: 40px;font-size: 30px;
     text-align: center;background-color: #333;
     color: azure;
+}
+input[type="file"]{
+display: none;
+}
+label{
+
+    font-size: large;
+    height: 40px;
+    text-align: center;
+    background-color: #ffffff;
+    color: #333;
 }

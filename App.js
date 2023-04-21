@@ -6,6 +6,7 @@ const down=document.querySelector(".down")
 const save=document.querySelector(".save")
 const size=document.querySelector(".size")
 const clear=document.querySelector(".clear")
+const file=document.querySelector("#file")
 let isdrawing=false
 let usecolor="#333"
 let sizedraw=3
@@ -83,4 +84,20 @@ clear.addEventListener('click',e=>{
 })
 save.addEventListener('click',e=>{
     save.setAttribute('href',canvas.toDataURL("image/png"))
+})
+file.addEventListener('change',(e)=>{
+    console.log(e.target.files[0])
+    const img=e.target.files[0];
+    const reader=new FileReader();
+    reader.onload=()=>{
+        fileurl=reader.result;
+    //    image=` <img src="${fileurl}" >`
+       document.querySelector(".image").setAttribute('src',`${fileurl}`)
+      
+    }
+    reader.readAsDataURL(img)
+    document.querySelector(".image").onload=()=>{
+        ctx.drawImage( document.querySelector(".image"),200,200,600,500)
+    }
+    
 })
