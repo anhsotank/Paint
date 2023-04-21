@@ -64,7 +64,7 @@ color.addEventListener("change",(even)=>{
     usecolor=even.target.value
 })
 remove.addEventListener("click",e=>{
-    usecolor="#fff"
+    usecolor="#f0f3f9"
 })
 up.addEventListener('click',e=>{  
     if(sizedraw<10){

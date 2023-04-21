@@ -20,6 +20,7 @@ body{
 }
 #canvas{
     border: 1px solid #333;
+    background-color: #f0f3f9;
 }
 .size{
     border-radius: 4px;
