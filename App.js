@@ -121,7 +121,4 @@ file.addEventListener('change',(e)=>{
     }
     
 })
-// reponsive
-if(document.body.clientWidth < 800){
-    canvas.width=600
-}
+
