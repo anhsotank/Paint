@@ -35,7 +35,7 @@ Draw = ()=>{
         ctx.stroke();
         pointstart.x=pointlast.x
         pointstart.y=pointlast.y
-        console.log(even.offsetX,even.offsetY)
+        
 }
 
 canvas.addEventListener("mousedown",(even)=>{
@@ -53,6 +53,7 @@ canvas.addEventListener("mousemove",(even)=>{
             y: even.offsetY
         }
         Draw()
+        console.log(even.offsetX)
     }
 })
 canvas.addEventListener("mouseup",(even)=>{   
@@ -60,19 +61,19 @@ canvas.addEventListener("mouseup",(even)=>{
 })
 canvas.addEventListener("touchstart",(even)=>{
     pointstart={
-       x:even.offsetX,
-       y:even.offsetY
+       x:even.touches[0].clientX,
+       y:even.touches[0].clientY
    }
-   
    isdrawing=true
 })
 canvas.addEventListener("touchmove",(even)=>{
    if(isdrawing){
        pointlast={
-           x: even.offsetX,
-           y: even.offsetY
+           x: even.touches[0].clientX,
+           y: even.touches[0].clientY
        }
        Draw()
+       
    }
 })
 canvas.addEventListener("touchend",(even)=>{   
