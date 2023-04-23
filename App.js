@@ -58,7 +58,26 @@ canvas.addEventListener("mousemove",(even)=>{
 canvas.addEventListener("mouseup",(even)=>{   
     isdrawing=false
 })
-
+canvas.addEventListener("touchstart",(even)=>{
+    pointstart={
+       x:even.offsetX,
+       y:even.offsetY
+   }
+   
+   isdrawing=true
+})
+canvas.addEventListener("touchmove",(even)=>{
+   if(isdrawing){
+       pointlast={
+           x: even.offsetX,
+           y: even.offsetY
+       }
+       Draw()
+   }
+})
+canvas.addEventListener("touchend",(even)=>{   
+   isdrawing=false
+})
 ///Menu
 color.addEventListener("change",(even)=>{
     usecolor=even.target.value
