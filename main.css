@@ -8,6 +8,7 @@ body{
     display: flex;
 }
 .wrapper{
+    position: fixed;
     padding: 4px;
     height: 1200px;
     width: 50px;
@@ -21,6 +22,7 @@ body{
 #canvas{
     border: 1px solid #333;
     background-color: #f0f3f9;
+    cursor: url("image/cursorpaint.png")3,6,auto;
 }
 .size{
     border-radius: 4px;
@@ -29,8 +31,10 @@ body{
     background-color: #ffffff;
     color: #333;
     height: 50px;
+    
 }
 button{
+
     height: 40px;
     outline: none;
     margin-top:10px ;
