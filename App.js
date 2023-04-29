@@ -7,9 +7,13 @@ const save=document.querySelector(".save")
 const size=document.querySelector(".size")
 const clear=document.querySelector(".clear")
 const file=document.querySelector("#file")
+const paintbrush=document.querySelector(".paintbrush")
+const rectangle=document.querySelector(".rectangle")
+const circle=document.querySelector(".circle")
 let isdrawing=false
 let usecolor="#333"
 let sizedraw=3
+let snapshot,toolpaint
 
 const ctx =canvas.getContext('2d');
 
@@ -21,7 +25,7 @@ let pointlast={
     x:0,
     y:0
 }
-Draw = ()=>{
+const Draw = ()=>{
     ctx.beginPath();
         ctx.arc(pointstart.x,pointstart.y,sizedraw,0,2*Math.PI);
         ctx.fillStyle=usecolor
@@ -38,27 +42,55 @@ Draw = ()=>{
         
 }
 
+const DrawRect = ()=>{
+
+    ctx.beginPath();
+    ctx.lineWidth=sizedraw*2;
+    ctx.strokeRect(pointstart.x,pointstart.y,pointlast.x-pointstart.x,pointlast.y-pointstart.y)
+    
+}
+const DrawCircle = ()=>{
+    ctx.beginPath();
+    ctx.lineWidth=sizedraw*2;
+    let bk=Math.sqrt(Math.pow((pointstart.x-pointlast.x),2)+Math.pow((pointstart.y-pointlast.y),2))
+    ctx.arc(pointstart.x,pointstart.y,bk,0,2*Math.PI);
+
+    ctx.stroke();
+}
+
 canvas.addEventListener("mousedown",(even)=>{
      pointstart={
         x:even.offsetX,
         y:even.offsetY
     }
-    
+    snapshot=ctx.getImageData(0,0,canvas.width,canvas.height);
     isdrawing=true
 })
 canvas.addEventListener("mousemove",(even)=>{
     if(isdrawing){
+        
         pointlast={
             x: even.offsetX,
             y: even.offsetY
         }
-        Draw()
-        console.log(even.offsetX)
+        if(toolpaint == "rectangle"){
+            ctx.putImageData(snapshot,0,0) 
+            DrawRect() 
+        }else if(toolpaint =="paintbrush"){
+            Draw()
+        }else if(toolpaint="circle"){
+            ctx.putImageData(snapshot,0,0) 
+            DrawCircle()
+        }
+        
+        
     }
 })
 canvas.addEventListener("mouseup",(even)=>{   
     isdrawing=false
 })
+
+//mobile
 canvas.addEventListener("touchstart",(even)=>{
     pointstart={
        x:even.touches[0].clientX,
@@ -121,4 +153,18 @@ file.addEventListener('change',(e)=>{
     }
     
 })
+rectangle.addEventListener('click', ()=>{
+    toolpaint="rectangle"
+})
+paintbrush.addEventListener('click',()=>{
+    toolpaint="paintbrush"
+})
+circle.addEventListener('click',()=>{
+    toolpaint="circle"
+})
+// reponsive
+// if(document.body.clientWidth < 800){
+//     canvas.width=350
+  
+// }
 
