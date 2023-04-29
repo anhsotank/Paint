@@ -22,8 +22,9 @@ body{
 #canvas{
     border: 1px solid #333;
     background-color: #f0f3f9;
-   
 }
+    
+
 .size{
     border-radius: 4px;
     font-size: 30px;
@@ -34,7 +35,7 @@ body{
     
 }
 button{
-
+   font-size: 22px;
     height: 40px;
     outline: none;
     margin-top:10px ;
@@ -43,6 +44,7 @@ button{
     border-radius: 4px;
     display: block;
 }
+
 button:hover{
     opacity: .7;
 }
@@ -65,4 +67,7 @@ label{
     text-align: center;
     background-color: #ffffff;
     color: #333;
+}
+@media screen and (max-width:46.1875em){
+   
 }
