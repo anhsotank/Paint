@@ -13,7 +13,7 @@ const circle=document.querySelector(".circle")
 let isdrawing=false
 let usecolor="#333"
 let sizedraw=3
-let snapshot,toolpaint
+let snapshot,toolpaint="paintbrush"
 
 const ctx =canvas.getContext('2d');
 
@@ -45,6 +45,7 @@ const Draw = ()=>{
 const DrawRect = ()=>{
 
     ctx.beginPath();
+    ctx.strokeStyle=usecolor;
     ctx.lineWidth=sizedraw*2;
     ctx.strokeRect(pointstart.x,pointstart.y,pointlast.x-pointstart.x,pointlast.y-pointstart.y)
     
@@ -52,6 +53,7 @@ const DrawRect = ()=>{
 const DrawCircle = ()=>{
     ctx.beginPath();
     ctx.lineWidth=sizedraw*2;
+    ctx.strokeStyle=usecolor;
     let bk=Math.sqrt(Math.pow((pointstart.x-pointlast.x),2)+Math.pow((pointstart.y-pointlast.y),2))
     ctx.arc(pointstart.x,pointstart.y,bk,0,2*Math.PI);
 
@@ -96,17 +98,28 @@ canvas.addEventListener("touchstart",(even)=>{
        x:even.touches[0].clientX,
        y:even.touches[0].clientY
    }
+   snapshot=ctx.getImageData(0,0,canvas.width,canvas.height);
    isdrawing=true
 })
 canvas.addEventListener("touchmove",(even)=>{
-   if(isdrawing){
-       pointlast={
-           x: even.touches[0].clientX,
-           y: even.touches[0].clientY
-       }
-       Draw()
-       
-   }
+    if(isdrawing){
+        
+        pointlast={
+            x:even.touches[0].clientX,
+            y:even.touches[0].clientY
+        }
+        if(toolpaint == "rectangle"){
+            ctx.putImageData(snapshot,0,0) 
+            DrawRect() 
+        }else if(toolpaint =="paintbrush"){
+            Draw()
+        }else if(toolpaint="circle"){
+            ctx.putImageData(snapshot,0,0) 
+            DrawCircle()
+        }
+        
+        
+    }
 })
 canvas.addEventListener("touchend",(even)=>{   
    isdrawing=false
@@ -137,8 +150,9 @@ clear.addEventListener('click',e=>{
 save.addEventListener('click',e=>{
     save.setAttribute('href',canvas.toDataURL("image/png"))
 })
+
 file.addEventListener('change',(e)=>{
-    console.log(e.target.files[0])
+   
     const img=e.target.files[0];
     const reader=new FileReader();
     reader.onload=()=>{
@@ -149,7 +163,7 @@ file.addEventListener('change',(e)=>{
     }
     reader.readAsDataURL(img)
     document.querySelector(".image").onload=()=>{
-        ctx.drawImage( document.querySelector(".image"),200,200,600,500)
+        ctx.drawImage( document.querySelector(".image"),pointstart.x,pointstart.y,pointlast.x-pointstart.x,pointlast.y-pointstart.y)
     }
     
 })
@@ -167,4 +181,11 @@ circle.addEventListener('click',()=>{
 //     canvas.width=350
   
 // }
+//active sidebar
+document.querySelectorAll("button").forEach(e => {
+    e.addEventListener('click',()=>{
+        document.querySelector('.active').classList.remove('active')
+        e.classList.add("active")
+    })
+});
 
