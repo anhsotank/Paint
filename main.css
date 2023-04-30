@@ -41,12 +41,15 @@ button{
     margin-top:10px ;
     margin-bottom: 10px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 5px;
     display: block;
 }
 
 button:hover{
     opacity: .7;
+}
+.active{
+    background-color: #E43654;
 }
 input{
     height: 40px;
