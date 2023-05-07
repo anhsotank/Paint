@@ -11,7 +11,9 @@ const paintbrush=document.querySelector(".paintbrush")
 const rectangle=document.querySelector(".rectangle")
 const circle=document.querySelector(".circle")
 let isdrawing=false
+let colorremove=false
 let usecolor="#333"
+let lastcolor="#333"
 let sizedraw=3
 let snapshot,toolpaint="paintbrush"
 
@@ -25,7 +27,15 @@ let pointlast={
     x:0,
     y:0
 }
+const check_remove_btn= ()=>{
+    if(colorremove){
+        usecolor="#f0f3f9"
+    }else{
+        usecolor=lastcolor
+    }
+}
 const Draw = ()=>{
+    check_remove_btn()
     ctx.beginPath();
         ctx.arc(pointstart.x,pointstart.y,sizedraw,0,2*Math.PI);
         ctx.fillStyle=usecolor
@@ -43,7 +53,7 @@ const Draw = ()=>{
 }
 
 const DrawRect = ()=>{
-
+    check_remove_btn()
     ctx.beginPath();
     ctx.strokeStyle=usecolor;
     ctx.lineWidth=sizedraw*2;
@@ -51,6 +61,7 @@ const DrawRect = ()=>{
     
 }
 const DrawCircle = ()=>{
+    check_remove_btn()
     ctx.beginPath();
     ctx.lineWidth=sizedraw*2;
     ctx.strokeStyle=usecolor;
@@ -127,9 +138,11 @@ canvas.addEventListener("touchend",(even)=>{
 ///Menu
 color.addEventListener("change",(even)=>{
     usecolor=even.target.value
+    lastcolor=even.target.value
 })
 remove.addEventListener("click",e=>{
-    usecolor="#f0f3f9"
+   colorremove=true
+   toolpaint="paintbrush"
 })
 up.addEventListener('click',e=>{  
     if(sizedraw<10){
@@ -168,12 +181,15 @@ file.addEventListener('change',(e)=>{
     
 })
 rectangle.addEventListener('click', ()=>{
+    colorremove=false
     toolpaint="rectangle"
 })
 paintbrush.addEventListener('click',()=>{
+    colorremove=false
     toolpaint="paintbrush"
 })
 circle.addEventListener('click',()=>{
+    colorremove=false
     toolpaint="circle"
 })
 // reponsive
