@@ -461,6 +461,76 @@ canvas.addEventListener("mouseup",(even)=>{
     isdrawing=false
 })
 ```
-như theo logic ở doadnj code này đàu tiên tôi sẽ bắt sự kiện khi người
-dùng nhấn chuột xuống để lấy tọa độ bắt đầu để chuẩn bị vẽ
+như theo logic ở đoạn code này đầu tiên tôi sẽ bắt sự kiện khi người
+dùng nhấn chuột xuống để lấy tọa độ bắt đầu để chuẩn bị vẽ ,sau đó tôi 
+sẽ bắt sự kiện khi người dùng di chuyển chuột để lấy tọa độ tiếp theo
+và để kết thúc  tôi sẽ bắt sự kiện khi người dùng thả chuột ra để dừng 
+quá trình vẽ
+>Và tiếp theo là đến đoạn code xử lí các chức năng ở menu
+```js
+color.addEventListener("change",(even)=>{
+    usecolor=even.target.value
+    lastcolor=even.target.value
+})
+remove.addEventListener("click",e=>{
+   colorremove=true
+   toolpaint="paintbrush"
+})
+up.addEventListener('click',e=>{  
+    if(sizedraw<10){
+        sizedraw++;
+        size.innerText=sizedraw;
+    }
+})
+down.addEventListener('click',e=>{
+    if(sizedraw>1){
+        sizedraw--;
+        size.innerText=sizedraw;
+    }
+})
+clear.addEventListener('click',e=>{
+    ctx.clearRect(0,0,canvas.getClientRects()[0].width,canvas.getClientRects()[0].height)
+})
+save.addEventListener('click',e=>{
+    save.setAttribute('href',canvas.toDataURL("image/png"))
+})
+file.addEventListener('change',(e)=>{
+    const img=e.target.files[0];
+    const reader=new FileReader();
+    reader.onload=()=>{
+        fileurl=reader.result;
+    //    image=` <img src="${fileurl}" >`
+       document.querySelector(".image").setAttribute('src',`${fileurl}`)
+      
+    }
+    reader.readAsDataURL(img)
+    document.querySelector(".image").onload=()=>{
+        ctx.drawImage( document.querySelector(".image"),pointstart.x,pointstart.y,pointlast.x-pointstart.x,pointlast.y-pointstart.y)
+    }
+    
+})
+rectangle.addEventListener('click', ()=>{
+    colorremove=false
+    toolpaint="rectangle"
+})
+paintbrush.addEventListener('click',()=>{
+    colorremove=false
+    toolpaint="paintbrush"
+})
+circle.addEventListener('click',()=>{
+    colorremove=false
+    toolpaint="circle"
+})
+
+document.querySelectorAll("button").forEach(e => {
+    e.addEventListener('click',()=>{
+        document.querySelector('.active').classList.remove('active')
+        e.classList.add("active")
+    })
+});
+```
+Ở đây ta lắng nghe sự kiện click cuả từng botton có trong menu,để
+thực hiện các chức năng
+
+
 
